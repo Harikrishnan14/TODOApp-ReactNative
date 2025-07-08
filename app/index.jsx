@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { data } from '@/data/todos'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function Index() {
   const [todos, setTodos] = useState(data.sort((a, b) => b.id - a.id))
@@ -23,6 +24,20 @@ export default function Index() {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
+  const renderItem = ({ item }) => (
+    <View style={styles.todoItem}>
+      <Text
+        style={[styles.todoText, item.completed && styles.completedText]}
+        onPress={() => toggleTodo(item.id)}
+      >
+        {item.title}
+      </Text>
+      <Pressable onPress={() => removeTodo(item.id)}>
+        <MaterialCommunityIcons name="delete-circle" size={36} color="red" selectable={undefined} />
+      </Pressable>
+    </View>
+  )
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.inputContainer}>
@@ -37,6 +52,13 @@ export default function Index() {
           <Text style={styles.addButtonText}>Add</Text>
         </Pressable>
       </View>
+
+      <FlatList
+        data={todos}
+        renderItem={renderItem}
+        keyExtractor={todo => todo.id}
+        contentContainerStyle={{ flexGrow: 1 }}
+      />
     </SafeAreaView>
   );
 }
@@ -75,5 +97,27 @@ const styles = StyleSheet.create({
   addButtonText: {
     fontSize: 18,
     color: 'black',
+  },
+  todoItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 4,
+    padding: 10,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+    width: '100%',
+    maxWidth: 1024,
+    marginHorizontal: 'auto',
+    pointerEvents: 'auto'
+  },
+  todoText: {
+    flex: 1,
+    fontSize: 18,
+    color: 'white'
+  },
+  completedText: {
+    textDecorationLine: 'line-through',
+    color: 'gray'
   }
 })
