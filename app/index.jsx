@@ -8,6 +8,7 @@ import { ThemeContext } from "@/context/ThemeContext";
 import Octicons from '@expo/vector-icons/Octicons'
 import Animated, { LinearTransition } from 'react-native-reanimated'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { StatusBar } from "expo-status-bar";
 
 export default function Index() {
   const [todos, setTodos] = useState([])
@@ -41,7 +42,7 @@ export default function Index() {
     const storeData = async () => {
       try {
         const jsonValue = JSON.stringify(todos)
-       await AsyncStorage.setItem("TodoApp", jsonValue)
+        await AsyncStorage.setItem("TodoApp", jsonValue)
       } catch (error) {
         console.error(error);
       }
@@ -111,6 +112,7 @@ export default function Index() {
         itemLayoutAnimation={LinearTransition}
         keyboardDismissMode="on-drag"
       />
+      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
     </SafeAreaView>
   );
 }
