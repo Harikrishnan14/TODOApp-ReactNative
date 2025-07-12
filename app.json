@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "CrudApp",
-    "slug": "CrudApp",
+    "name": "TodoApp",
+    "slug": "TodoApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "crudapp",
+    "scheme": "todoapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -17,7 +17,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.CrudApp"
+      "package": "com.anonymous.TodoApp"
     },
     "web": {
       "bundler": "metro",
